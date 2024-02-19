@@ -34,9 +34,9 @@ pros::Rotation r_enc(15, false);
 //pros::Rotation h_enc(15, true);
 
 
-// horizontal tracking wheel. 2.75" diameter, 3.7" offset, back of the robot (negative)
-lemlib::TrackingWheel l_tracking_wheel(&l_enc, 2, -4.3, 1);
-lemlib::TrackingWheel r_tracking_wheel(&r_enc, 2, 4.3, 1);
+// horizontal tracking wheel. 2.00" diameter, 3.7" offset, back of the robot (negative)
+lemlib::TrackingWheel l_tracking_wheel(&l_enc, 2, -4, 1);
+lemlib::TrackingWheel r_tracking_wheel(&r_enc, 2, 4, 1);
 // //lemlib::TrackingWheel h_tracking_wheel(&h_enc, 2.75, 0, 1);
 
 // odometry struct
@@ -51,7 +51,7 @@ lemlib::OdomSensors_t sensors {
 // forward/backward PID
 lemlib::ChassisController_t lateralController {
     8, // kP
-    30, // kD
+    0, // kD
     1, // smallErrorRange
     100, // smallErrorTimeout
     3, // largeErrorRange
@@ -62,7 +62,7 @@ lemlib::ChassisController_t lateralController {
 // turning PID
 lemlib::ChassisController_t angularController {
     4, // kP
-    40, // kD
+    0, // kD
     1, // smallErrorRange
     100, // smallErrorTimeout
     3, // largeErrorRange
@@ -143,8 +143,8 @@ void close_side_auton() {}
  */
 
 void autonomous() {
-	chassis.follow(paht2.txt, 10000, 5, false);
-    chassis.follow(paht2.txt, 10000, 5, true);
+	chassis.follow("straightPath.txt", 10000, 5);
+    // chassis.follow("paht2.txt", 10000, 5, true);
 }
 
 /**
@@ -169,6 +169,5 @@ void opcontrol() {
         pros::lcd::print(5, "Turned");
 
     }
-    delay(2000)
-	}
+}
 
