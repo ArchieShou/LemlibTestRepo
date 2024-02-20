@@ -146,7 +146,7 @@ void autonomous() {
 	chassis.follow("auto1v1.txt", 2000, 10, true);
     chassis.moveTo(-50, 46.5, 3000, 100);
     chassis.turnTo(45, 4.25, 4000);
-    chassis.follow("auto2v1.txt", 10000, 10, false);
+    chassis.follow("auto2v2.txt", 10000, 10, false);
 }
 
 /**
