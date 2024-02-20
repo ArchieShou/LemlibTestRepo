@@ -35,8 +35,8 @@ pros::Rotation r_enc(15, false);
 
 
 // horizontal tracking wheel. 2.00" diameter, 3.7" offset, back of the robot (negative)
-lemlib::TrackingWheel l_tracking_wheel(&l_enc, 2, -4, 1);
-lemlib::TrackingWheel r_tracking_wheel(&r_enc, 2, 4, 1);
+lemlib::TrackingWheel l_tracking_wheel(&l_enc, 2, -3, 1);
+lemlib::TrackingWheel r_tracking_wheel(&r_enc, 2, 3, 1);
 // //lemlib::TrackingWheel h_tracking_wheel(&h_enc, 2.75, 0, 1);
 
 // odometry struct
@@ -61,8 +61,8 @@ lemlib::ChassisController_t lateralController {
  
 // turning PID
 lemlib::ChassisController_t angularController {
-    4, // kP
-    0, // kD
+    0.9, // kP
+    0.2, // kD
     1, // smallErrorRange
     100, // smallErrorTimeout
     3, // largeErrorRange
@@ -95,7 +95,7 @@ void initialize() {
     chassis.calibrate(); // calibrate the chassis
     pros::Task screenTask(screen); // create a task to print the position to the screen
 	//chassis.setPose(5.2, 10.333, 87); // X: 5.2, Y: 10.333, Heading: 87
-    chassis.setPose(0, 0, 0); // X: 0, Y: 0, Heading: 0
+    chassis.setPose(-47, 52.5, 45); // X: 0, Y: 0, Heading: 0
 
 }
 
@@ -143,8 +143,10 @@ void close_side_auton() {}
  */
 
 void autonomous() {
-	chassis.follow("straightPath.txt", 10000, 5);
-    // chassis.follow("paht2.txt", 10000, 5, true);
+	chassis.follow("auto1v1.txt", 2000, 10, true);
+    chassis.moveTo(-50, 46.5, 3000, 100);
+    chassis.turnTo(45, 4.25, 4000);
+    chassis.follow("auto2v1.txt", 10000, 10, false);
 }
 
 /**
@@ -165,7 +167,6 @@ void opcontrol() {
 	pros::lcd::print(3, "op");
 	if (master.get_digital_new_press(DIGITAL_A)){
         pros::lcd::print(4, "pressed");
-        chassis.turnTo(10,10,1000);
         pros::lcd::print(5, "Turned");
 
     }
