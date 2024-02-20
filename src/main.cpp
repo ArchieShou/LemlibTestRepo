@@ -95,7 +95,7 @@ void initialize() {
     chassis.calibrate(); // calibrate the chassis
     pros::Task screenTask(screen); // create a task to print the position to the screen
 	//chassis.setPose(5.2, 10.333, 87); // X: 5.2, Y: 10.333, Heading: 87
-    chassis.setPose(-50, 59, 45); // X: 0, Y: 0, Heading: 0
+    chassis.setPose(-53, 59, 45); // X: 0, Y: 0, Heading: 0
 
 }
 
@@ -143,10 +143,21 @@ void close_side_auton() {}
  */
 
 void autonomous() {
-	chassis.follow("auto1v1.txt", 2000, 10, true);
-    chassis.moveTo(-50, 46.5, 3000, 100);
-    chassis.turnTo(45, 4.25, 4000);
-    chassis.follow("auto2v2.txt", 10000, 10, false);
+	chassis.follow("auto1v2.txt", 2000, 10, true);
+    chassis.moveTo(-63, 46, 3000, 100);
+    pros::delay(3000);
+    //before was 10
+    chassis.turnTo(42, 15, 3000);
+    pros::delay(3000);
+    chassis.turnTo(-43, 65, 3000);
+    pros::delay(3000);
+    chassis.moveTo(-39, 58, 3000);
+    chassis.follow("auto2v4.txt", 10000, 10, false);
+    pros::delay(3000);
+    // chassis.follow("auto3v1,txt", 10000, 10, true);
+    // pros::delay(3000);
+    // chassis.moveTo(25, 0, 3000);
+
 }
 
 /**
